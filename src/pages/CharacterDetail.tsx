@@ -1,15 +1,6 @@
 import React from "react";
 import { useParams } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
-import type { Character } from "../types/Character";
-
-const fetchCharacterById = async (id: string) => {
-  const response = await axios.get(
-    `https://rickandmortyapi.com/api/character/${id}`
-  );
-  return response.data;
-};
+import { useCharacterQuery } from "../hooks/useCharacterQuery";
 
 const containerStyle: React.CSSProperties = {
   maxWidth: '800px',
@@ -56,14 +47,7 @@ const labelStyle: React.CSSProperties = {
 
 const CharacterDetail: React.FC = () => {
   const { id } = useParams({ from: "/character/$id" });
-  const {
-    data: character,
-    isLoading,
-    isError,
-  } = useQuery<Character>({
-    queryKey: ['character', id],
-    queryFn: () => fetchCharacterById(id),
-  });
+  const { data: character, isLoading, isError } = useCharacterQuery(id);
 
   if (isLoading) return <div style={{ textAlign: 'center', padding: '40px', color: '#666', fontSize: '24px' }}>Loading character...</div>;
   if (isError || !character) return <div style={{ textAlign: 'center', padding: '40px', color: '#e53e3e', fontSize: '24px' }}>Error loading character</div>;

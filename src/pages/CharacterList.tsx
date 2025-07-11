@@ -48,7 +48,11 @@ const columns = [
   columnHelper.accessor("image", {
     header: "Image",
     cell: (info) => (
-      <img src={info.getValue()} alt="character" style={{ width: '50px', height: '50px', borderRadius: '50%' }} />
+      <img
+        src={info.getValue()}
+        alt="character"
+        style={{ width: "50px", height: "50px", borderRadius: "50%" }}
+      />
     ),
   }),
   columnHelper.accessor("episode", {
@@ -150,7 +154,7 @@ const CharacterList: React.FC = () => {
       <button style={buttonStyle} onClick={() => refetch()}>
         Refresh
       </button>
-      <div style={{ overflowX: 'auto' }}>
+      <div style={{ overflowX: "auto" }}>
         <table style={tableStyle}>
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (
